@@ -9,12 +9,22 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var bruteButton: UIButton!
+    @IBOutlet weak var generateButton: UIButton!
+    @IBOutlet weak var label: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
 
-
+    @IBAction func generateClick(_ sender: Any) {
+    }
+    @IBAction func bruteClick(_ sender: Any) {
+    }
+    
 }
 func generatePassword() -> String {
     let numbers = 4
