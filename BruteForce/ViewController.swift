@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  BruteForce
 //
-//  Created by Адель Ахметшин on 24.12.2021.
+//  Created by Адель Ахметшин on 24.12.2021
 //
 
 import UIKit
