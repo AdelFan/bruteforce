@@ -54,12 +54,12 @@ class ViewController: UIViewController {
     /// - Parameter sender: Any
     @IBAction func bruteClick(_ sender: Any) {
         let queue = OperationQueue()
-        self.isBlack.toggle()
-        queue.addOperation {
-            self.bruteForce(passwordToUnlock: self.textField.text ?? "")
-            self.isBlack = false
-            self.textField.isSecureTextEntry = false
-            self.label.text = self.textField.text
+        isBlack.toggle()
+        queue.addOperation { [weak self] in
+            self?.bruteForce(passwordToUnlock: self?.textField.text ?? "")
+            self?.isBlack = false
+            self?.textField.isSecureTextEntry = false
+            self?.label.text = self?.textField.text
         }
     }
     
