@@ -1,12 +1,11 @@
 //
-//  BruteMethod.swift
+//  StringExtension.swift
 //  BruteForce
 //
-//  Created by Адель Ахметшин on 13.01.2022.
+//  Created by Адель Ахметшин on 20.01.2022.
 //
 
 import Foundation
-
 
 extension String {
     var digits: String { return "0123456789" }
@@ -27,5 +26,22 @@ extension String {
         let charPassword = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()_+"
         let correctPassword = String((0..<numbers).compactMap{ _ in charPassword.randomElement() })
         return correctPassword
+    }
+    
+    func split(len: [Int]) -> [String] {
+        var currentIndex = 0
+        var array = [String]()
+        let length = self.count
+        var i = 0
+        
+        while currentIndex < length {
+            let startIndex = index(self.startIndex, offsetBy: currentIndex)
+            let endIndex = index(startIndex, offsetBy: len[i], limitedBy: self.endIndex) ?? self.endIndex
+            let substr = String( self[startIndex..<endIndex] )
+            array.append(substr)
+            currentIndex += len[i]
+            i += 1
+        }
+        return array
     }
 }

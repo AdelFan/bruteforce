@@ -7,16 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		771BF2B127999F5C00AB009F /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771BF2B027999F5C00AB009F /* StringExtension.swift */; };
+		779CFD7D279C0FE7009E7C2D /* BruteOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779CFD7C279C0FE7009E7C2D /* BruteOperation.swift */; };
 		77D97F0E2775B40E004BDD34 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D97F0D2775B40E004BDD34 /* AppDelegate.swift */; };
 		77D97F102775B40E004BDD34 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D97F0F2775B40E004BDD34 /* SceneDelegate.swift */; };
 		77D97F122775B40E004BDD34 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D97F112775B40E004BDD34 /* ViewController.swift */; };
 		77D97F152775B40E004BDD34 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77D97F132775B40E004BDD34 /* Main.storyboard */; };
 		77D97F172775B40E004BDD34 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77D97F162775B40E004BDD34 /* Assets.xcassets */; };
 		77D97F1A2775B40E004BDD34 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77D97F182775B40E004BDD34 /* LaunchScreen.storyboard */; };
-		77F0814C27905572008F5BE0 /* BruteMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F0814B27905572008F5BE0 /* BruteMethod.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		771BF2B027999F5C00AB009F /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		779CFD7C279C0FE7009E7C2D /* BruteOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BruteOperation.swift; sourceTree = "<group>"; };
 		77D97F0A2775B40E004BDD34 /* BruteForce.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BruteForce.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77D97F0D2775B40E004BDD34 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		77D97F0F2775B40E004BDD34 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -25,7 +28,6 @@
 		77D97F162775B40E004BDD34 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		77D97F192775B40E004BDD34 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		77D97F1B2775B40E004BDD34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		77F0814B27905572008F5BE0 /* BruteMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BruteMethod.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +63,8 @@
 				77D97F0D2775B40E004BDD34 /* AppDelegate.swift */,
 				77D97F0F2775B40E004BDD34 /* SceneDelegate.swift */,
 				77D97F112775B40E004BDD34 /* ViewController.swift */,
-				77F0814B27905572008F5BE0 /* BruteMethod.swift */,
+				779CFD7C279C0FE7009E7C2D /* BruteOperation.swift */,
+				771BF2B027999F5C00AB009F /* StringExtension.swift */,
 				77D97F132775B40E004BDD34 /* Main.storyboard */,
 				77D97F162775B40E004BDD34 /* Assets.xcassets */,
 				77D97F182775B40E004BDD34 /* LaunchScreen.storyboard */,
@@ -143,8 +146,9 @@
 			files = (
 				77D97F122775B40E004BDD34 /* ViewController.swift in Sources */,
 				77D97F0E2775B40E004BDD34 /* AppDelegate.swift in Sources */,
+				779CFD7D279C0FE7009E7C2D /* BruteOperation.swift in Sources */,
+				771BF2B127999F5C00AB009F /* StringExtension.swift in Sources */,
 				77D97F102775B40E004BDD34 /* SceneDelegate.swift in Sources */,
-				77F0814C27905572008F5BE0 /* BruteMethod.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
