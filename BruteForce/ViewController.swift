@@ -17,17 +17,27 @@ class ViewController: UIViewController {
     private var arrayPass: [String] = []
     
     
-    
     /// Изменение свойства ActivityIndicator
     private var isActivityIndicator = false {
         didSet {
             if isActivityIndicator {
                 activityIndicator.alpha = numberValues.IndicatorTrue
+                generateButton.alpha = numberValues.IndicatorFalse
                 activityIndicator.startAnimating()
             } else {
-                self.activityIndicator.stopAnimating()
-                self.activityIndicator.alpha = numberValues.IndicatorFalse
+                activityIndicator.stopAnimating()
+                activityIndicator.alpha = numberValues.IndicatorFalse
+                generateButton.alpha = numberValues.IndicatorTrue
             }
+        }
+    }
+    
+    /// Метод изменения UI после завершения подбора пароля
+    private func doneBrute() {
+        DispatchQueue.main.async {
+            self.label.text = self.textField.text
+            self.textField.isSecureTextEntry = false
+            self.isActivityIndicator = false
         }
     }
     
@@ -45,26 +55,20 @@ class ViewController: UIViewController {
     /// Обработка нажатия на кнопку Generate
     /// - Parameter sender: Any
     @IBAction func generateClick(_ sender: Any) {
-        if isActivityIndicator {
-            generateButton.alpha = numberValues.IndicatorFalse
-        } else if isActivityIndicator == false {
-            textField.isSecureTextEntry = true
-            textField.text = String().generatePassword(value: numberValues.characters)
-            isActivityIndicator.toggle()
-            arrayPass = textField.text?.split(len: [3, 3, 3, 3]) ?? [" "]
-            for i in arrayPass {
-                let operationA = BruteOperation(password: i)
-                let queue = OperationQueue()
-                queue.addOperation(operationA)
-                queue.addBarrierBlock {
-                    self.label.text = self.textField.text
-                    self.textField.isSecureTextEntry = false
-                    self.isActivityIndicator = false
-                }
-            }
+        let queue = OperationQueue()
+        textField.isSecureTextEntry = true
+        textField.text = String().generatePassword(value: numberValues.characters)
+        isActivityIndicator.toggle()
+        arrayPass = textField.text?.split(amountChar: numberValues.amountChar) ?? [" "]
+        for char in arrayPass {
+            let operationA = BruteOperation(password: char)
+            queue.addOperation(operationA)
+        }
+        queue.addBarrierBlock {
+            self.doneBrute()
         }
     }
-        
+    
     /// Метод изменения цвета фона
     /// - Parameter sender: Any
     @IBAction func changeBackground(_ sender: Any) {
@@ -74,7 +78,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         textField.isSecureTextEntry = true
-        label.text = ""
         activityIndicator.alpha = numberValues.IndicatorFalse
     }
 }
@@ -84,4 +87,5 @@ class numberValues {
     static let IndicatorFalse = 0.0
     static let characters = 12
     static let count = 0
+    static let amountChar = 3
 }
