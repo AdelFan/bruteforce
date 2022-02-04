@@ -17,13 +17,14 @@ class ViewController: UIViewController {
     private var arrayPass: [String] = []
     
     
-    /// Изменение свойства ActivityIndicator
-    private var isActivityIndicator = false {
+    /// Изменение интерфейса до и после выполнения подбора пароля
+    private var isInterfaceChange = false {
         didSet {
-            if isActivityIndicator {
+            if isInterfaceChange {
                 activityIndicator.alpha = numberValues.IndicatorTrue
                 generateButton.alpha = numberValues.IndicatorFalse
                 activityIndicator.startAnimating()
+                label.text = " "
             } else {
                 activityIndicator.stopAnimating()
                 activityIndicator.alpha = numberValues.IndicatorFalse
@@ -37,7 +38,7 @@ class ViewController: UIViewController {
         DispatchQueue.main.async {
             self.label.text = self.textField.text
             self.textField.isSecureTextEntry = false
-            self.isActivityIndicator = false
+            self.isInterfaceChange = false
         }
     }
     
@@ -58,7 +59,7 @@ class ViewController: UIViewController {
         let queue = OperationQueue()
         textField.isSecureTextEntry = true
         textField.text = String().generatePassword(value: numberValues.characters)
-        isActivityIndicator.toggle()
+        isInterfaceChange.toggle()
         arrayPass = textField.text?.split(amountChar: numberValues.amountChar) ?? [" "]
         for char in arrayPass {
             let operationA = BruteOperation(password: char)
@@ -77,8 +78,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        textField.isSecureTextEntry = true
-        activityIndicator.alpha = numberValues.IndicatorFalse
     }
 }
 
@@ -89,3 +88,4 @@ class numberValues {
     static let count = 0
     static let amountChar = 3
 }
+
