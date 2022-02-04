@@ -18,7 +18,7 @@ class BruteOperation: Operation {
         bruteForce(passwordToUnlock: password)
     }
     
-    /// Метод подбора пароля
+    /// Метод, который возвращает подобранный пароль
     /// - Parameter passwordToUnlock: String
     func bruteForce(passwordToUnlock: String) {
         let allowedCharacters: [String] = String().printable.map { String($0) }
@@ -30,15 +30,18 @@ class BruteOperation: Operation {
         print(password)
     }
     
+    /// Метод, который возвращает первый элемент массива
     func indexOf(character: Character, _ array: [String]) -> Int {
         return array.firstIndex(of: String(character))!
     }
     
+    /// Метод, который возвращает символ
     func characterAt(index: Int, _ array: [String]) -> Character {
         return index < array.count ? Character(array[index])
         : Character("")
     }
     
+    /// Метод, который начинает подбор пароля
     func generateBruteForce(_ string: String, fromArray array: [String]) -> String {
         var string: String = string
         if string.count <= 0 {
