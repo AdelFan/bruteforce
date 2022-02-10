@@ -11,104 +11,81 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var textField: UITextField!
-    @IBOutlet weak var bruteButton: UIButton!
     @IBOutlet weak var generateButton: UIButton!
     @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var changeBackground: UIButton!
+    private var arrayPass: [String] = []
     
-    var isBlack: Bool = false {
+    
+    /// Изменение интерфейса до и после выполнения подбора пароля
+    private var isInterfaceChange = false {
         didSet {
-            if isBlack {
-                activityIndicator.alpha = 1.0
+            if isInterfaceChange {
+                activityIndicator.alpha = numberValues.IndicatorTrue
+                generateButton.alpha = numberValues.IndicatorFalse
                 activityIndicator.startAnimating()
+                label.text = " "
             } else {
-                self.activityIndicator.stopAnimating()
-                self.activityIndicator.alpha = 0.0
+                activityIndicator.stopAnimating()
+                activityIndicator.alpha = numberValues.IndicatorFalse
+                generateButton.alpha = numberValues.IndicatorTrue
             }
         }
     }
     
-    @IBAction func generateClick(_ sender: Any) {
-        if !isBlack {
-            label.text = "Password"
-            textField.isSecureTextEntry = true
-            textField.text = generatePassword()
-        } else if isBlack == true {
-            generateButton.alpha = 0.0
+    /// Метод изменения UI после завершения подбора пароля
+    private func doneBrute() {
+        DispatchQueue.main.async {
+            self.label.text = self.textField.text
+            self.textField.isSecureTextEntry = false
+            self.isInterfaceChange = false
         }
     }
     
-    @IBAction func bruteClick(_ sender: Any) {
-        let queue = OperationQueue()
-        self.isBlack.toggle()
-        queue.addOperation {
-            self.bruteForce(passwordToUnlock: self.textField.text ?? "")
-            self.isBlack = false
-            self.textField.isSecureTextEntry = false
-            self.label.text = self.textField.text
+    /// Изменение заднего фона
+    private var backgroundColor = false {
+        didSet {
+            if backgroundColor {
+                view.backgroundColor = .purple
+            } else {
+                view.backgroundColor = .white
+            }
         }
+    }
+    
+    /// Обработка нажатия на кнопку Generate
+    /// - Parameter sender: Any
+    @IBAction func generateClick(_ sender: Any) {
+        let queue = OperationQueue()
+        textField.isSecureTextEntry = true
+        textField.text = String().generatePassword(value: numberValues.characters)
+        isInterfaceChange.toggle()
+        arrayPass = textField.text?.split(amountChar: numberValues.amountChar) ?? [" "]
+        for char in arrayPass {
+            let operationA = BruteOperation(password: char)
+            queue.addOperation(operationA)
+        }
+        queue.addBarrierBlock {
+            self.doneBrute()
+        }
+    }
+    
+    /// Метод изменения цвета фона
+    /// - Parameter sender: Any
+    @IBAction func changeBackground(_ sender: Any) {
+        backgroundColor.toggle()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        textField.isSecureTextEntry = true
-        label.text = "Password"
-        activityIndicator.alpha = 0.0
-    }
-    
-    func generatePassword() -> String {
-        let numbers = 4
-        let charPassword = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()_+"
-        let donePsw = String((0..<numbers).compactMap{ _ in charPassword.randomElement() })
-        return donePsw
-    }
-    
-    func bruteForce(passwordToUnlock: String) {
-        let ALLOWED_CHARACTERS: [String] = String().printable.map { String($0) }
-        var password: String = ""
-        while password != passwordToUnlock {
-            password = generateBruteForce(password, fromArray: ALLOWED_CHARACTERS)
-            print(password)
-        }
-        print(password)
-    }
-    
-    func indexOf(character: Character, _ array: [String]) -> Int {
-        return array.firstIndex(of: String(character))!
-    }
-    
-    func characterAt(index: Int, _ array: [String]) -> Character {
-        return index < array.count ? Character(array[index])
-        : Character("")
-    }
-    
-    func generateBruteForce(_ string: String, fromArray array: [String]) -> String {
-        var str: String = string
-        if str.count <= 0 {
-            str.append(characterAt(index: 0, array))
-        }
-        else {
-            str.replace(at: str.count - 1,
-                        with: characterAt(index: (indexOf(character: str.last!, array) + 1) % array.count, array))
-            if indexOf(character: str.last!, array) == 0 {
-                str = String(generateBruteForce(String(str.dropLast()), fromArray: array)) + String(str.last!)
-            }
-        }
-        return str
     }
 }
 
-extension String {
-    var digits: String { return "0123456789" }
-    var lowercase: String { return "abcdefghijklmnopqrstuvwxyz" }
-    var uppercase: String { return "ABCDEFGHIJKLMNOPQRSTUVWXYZ" }
-    var punctuation: String { return "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~" }
-    var letters: String { return lowercase + uppercase }
-    var printable: String { return digits + letters + punctuation }
-    
-    mutating func replace(at index: Int, with character: Character) {
-        var stringArray = Array(self)
-        stringArray[index] = character
-        self = String(stringArray)
-    }
+class numberValues {
+    static let IndicatorTrue = 1.0
+    static let IndicatorFalse = 0.0
+    static let characters = 12
+    static let count = 0
+    static let amountChar = 3
 }
 
